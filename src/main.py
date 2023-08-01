@@ -90,9 +90,9 @@ def exercise2():
         # Load chat history
         for message in messages[:-1]:
             if (message['role'] == 'assistant'):
-                chat.addAIMessasge(message['content'])
+                chat.addAIMessage(message['content'])
             if (message['role'] == 'user'):
-                chat.addUserMessasge(message['content'])
+                chat.addAIMessage(message['content'])
 
         # Send latest user message to GPT using exercise class
         res = chat.sendMessage(messages[-1].get('content'))
@@ -150,9 +150,9 @@ def exercise3():
         # Load chat history
         for message in messages[:-1]:
             if (message['role'] == 'assistant'):
-                chat.addAIMessasge(message['content'])
+                chat.addAIMessage(message['content'])
             if (message['role'] == 'user'):
-                chat.addUserMessasge(message['content'])
+                chat.addAIMessage(message['content'])
 
         # Send latest user message
         res = chat.sendMessage(messages[-1].get('content'))

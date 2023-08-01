@@ -1,0 +1,384 @@
+/* GENERAL */
+body {
+  background-color: #1a1a1a;
+  color: white;
+  font-family: Geneva, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  min-height: calc(100vh - 4em);
+  overflow-y: auto;
+  margin: 0;
+  padding: 2em;
+}
+
+body > div {
+  margin: auto 0;
+}
+
+img {
+  pointer-events: none;
+}
+
+#openai-chat-logo {
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  height: 50%;
+  opacity: 0.05;
+}
+
+/* BACK BUTTON FOR RETURNING TO MAIN PAGE */
+#back-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  padding: 0.5rem 0.75rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+#back-btn > img {
+  height: 1.5rem;
+}
+
+/* PLAY BUTTON FOR TESTING */
+#run-tests-btn {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding: 0.75rem 1.25rem;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+#run-tests-btn img {
+  height: 2rem;
+}
+
+#run-tests-btn.fail {
+  background-color: #f25022;
+}
+
+#run-tests-btn.success {
+  background-color: #5cb85c;
+  color: black !important;
+  cursor: default;
+}
+
+/* TITLES */
+h1 {
+  font-size: 2.9rem;
+  margin: 0;
+  text-align: center;
+}
+
+h2 {
+  font-size: 2rem;
+  margin: 0;
+  text-align: center;
+}
+
+h3 {
+  font-size: 1.25rem;
+  margin: 0;
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* FONTS */
+
+@font-face {
+  font-family: "Pixel";
+  src: url("fonts/pixel.TTF") format("truetype");
+}
+
+@font-face {
+  font-family: "Dogica";
+  src: url("fonts/dogicapixel.ttf") format("truetype");
+}
+
+.pixel {
+  font-family: "Pixel";
+  font-smooth: never;
+  -webkit-font-smoothing: none;
+  font-weight: 100;
+}
+
+.dogica {
+  font-family: "Dogica";
+  font-smooth: never;
+  -webkit-font-smoothing: none;
+  font-weight: 100;
+  line-height: 1.5em;
+}
+
+/* TOAST */
+
+#toast {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+}
+
+#toast.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* RAINBOW TEXT ANIMATION */
+
+.rainbow {
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    color-stop(0, #f22),
+    color-stop(0.15, #f2f),
+    color-stop(0.3, #22f),
+    color-stop(0.45, #2ff),
+    color-stop(0.6, #2f2),
+    color-stop(0.75, #2f2),
+    color-stop(0.9, #ff2),
+    color-stop(1, #f22)
+  );
+  background-image: gradient(
+    linear,
+    left top,
+    right top,
+    color-stop(0, #f22),
+    color-stop(0.15, #f2f),
+    color-stop(0.3, #22f),
+    color-stop(0.45, #2ff),
+    color-stop(0.6, #2f2),
+    color-stop(0.75, #2f2),
+    color-stop(0.9, #ff2),
+    color-stop(1, #f22)
+  );
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: animatedBackground 5s linear infinite;
+  -moz-animation: animatedBackground 5s linear infinite;
+  -webkit-animation: animatedBackground 5s linear infinite;
+  -ms-animation: animatedBackground 5s linear infinite;
+  -o-animation: animatedBackground 5s linear infinite;
+}
+
+.sparkle {
+  font-family: impact;
+  -webkit-text-fill-color: transparent;
+  background: -webkit-linear-gradient(transparent, transparent),
+    url(http://www.myspacehippo.com/files/glitterbacks/bg345.gif) repeat;
+  background: -o-linear-gradient(transparent, transparent);
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.scrolling {
+  color: blue;
+  animation: scrolling 3s linear infinite;
+  -moz-animation: scrolling 3s linear infinite;
+  -webkit-animation: scrolling 3s linear infinite;
+  -ms-animation: scrolling 3s linear infinite;
+  -o-animation: scrolling 3s linear infinite;
+}
+
+.scrolling-container {
+  overflow: hidden;
+  height: 55px;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Animation rainbow background */
+@keyframes animatedBackground {
+  0% {
+    background-position: 0;
+  }
+  100% {
+    background-position: 500px;
+  }
+}
+@-moz-keyframes animatedBackground {
+  0% {
+    background-position: 0;
+  }
+  100% {
+    background-position: 500px;
+  }
+}
+@-webkit-keyframes animatedBackground {
+  0% {
+    background-position: 0;
+  }
+  100% {
+    background-position: 500px;
+  }
+}
+@-ms-keyframes animatedBackground {
+  0% {
+    background-position: 0;
+  }
+  100% {
+    background-position: 500px;
+  }
+}
+@-o-keyframes animatedBackground {
+  0% {
+    background-position: 0;
+  }
+  100% {
+    background-position: 500px;
+  }
+}
+
+/* Y scroll animation */
+@keyframes scrolling {
+  0% {
+    transform: translateY(-150%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+@-moz-keyframes scrolling {
+  0% {
+    transform: translateY(-150%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+@-webkit-keyframes scrolling {
+  0% {
+    transform: translateY(-150%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+@-ms-keyframes scrolling {
+  0% {
+    transform: translateY(-150%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+@-o-keyframes scrolling {
+  0% {
+    transform: translateY(-150%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+/* ROTATING ANIMATION */
+@-webkit-keyframes rotating /* Safari and Chrome */ {
+  from {
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotating {
+  from {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform-or: rotate(360deg);
+  }
+}
+.rotating {
+  -webkit-animation: rotating 2s linear infinite;
+  -moz-animation: rotating 2s linear infinite;
+  -ms-animation: rotating 2s linear infinite;
+  -o-animation: rotating 2s linear infinite;
+  animation: rotating 2s linear infinite;
+}
+
+/* FADE IN / OUT ANIMATION */
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}

@@ -1,0 +1,4 @@
+.env
+.passphrase.*
+.DS_Store
+__pycache__

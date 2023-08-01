@@ -1,0 +1,90 @@
+body > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+}
+
+h2 span {
+  color: #7fba00;
+  font-size: 2.25rem;
+}
+
+/* CHAT BOX */
+
+#chat-box {
+  border: 3px solid #7fba00;
+  height: 70vh;
+  width: 80vw;
+  margin-bottom: 10vh;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#chat-box > div:nth-child(1) {
+  flex: 10;
+  position: relative;
+  overflow-y: auto;
+}
+
+#chat-box > div:nth-child(1) > div {
+  color: white;
+  padding: 2rem;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.message > span {
+  font-size: 1.05rem !important;
+}
+
+#openai-chat-logo {
+  filter: brightness(0) saturate(100%) invert(50%) sepia(78%) saturate(1027%)
+    hue-rotate(43deg) brightness(104%) contrast(101%);
+}
+
+#chat-box > div:nth-child(2) {
+  border-top: 3px solid #7fba00;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+#chat-box > div:nth-child(2) > input {
+  color: white;
+  font-size: 1.25rem;
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  padding: 0 1rem;
+  outline: none;
+}
+
+#chat-box > div:nth-child(2) > input:disabled {
+  color: gray;
+}
+
+#chat-box > div:nth-child(2) > div {
+  background-color: #7fba00;
+  height: 100%;
+  width: 3rem;
+  display: flex;
+  align-items: center;
+  padding: 0 0.25rem;
+}
+
+#chat-box > div:nth-child(2) > div:hover {
+  background-color: #76ad01;
+  cursor: pointer;
+}
+
+#chat-box > div:nth-child(2) > div > img {
+  height: 50%;
+  flex: 1;
+}

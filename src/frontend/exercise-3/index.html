@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>BEX Workshop</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../static/globals.css" />
+  </head>
+  <body>
+    <div>
+      <!-- BACK BTN -->
+      <button
+        id="back-btn"
+        class="dogica"
+        onclick="window.location.pathname = '/'"
+      >
+        <img src="../static/assets/icons/back.svg" />
+        Back
+      </button>
+
+      <!-- TEST AREA -->
+      <h2 class="pixel"><span>Exercise 3:</span> Conversation + prompt</h2>
+      <h3>Try your code!</h3>
+      <div id="chat-container">
+        <!-- Prompt area -->
+        <div id="prompt-box">
+          <div>Prompt area</div>
+          <textarea placeholder="Type here..."></textarea>
+          <button>Randomize</button>
+        </div>
+
+        <!-- Chat area -->
+        <div id="chat-box" class="dogica">
+          <div>
+            <div id="response-area"></div>
+            <img id="openai-chat-logo" src="../static/image/logo-openai.png" />
+          </div>
+          <div class="chat-input-container">
+            <input type="text" placeholder="Type here..." />
+            <div id="send-btn">
+              <img src="../static/assets/icons/send.svg" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RUN TESTS BUTTON -->
+    <button id="run-tests-btn" class="dogica"></button>
+
+    <!-- CUSTOM SCRIPT -->
+    <script type="module" src="script.js"></script>
+  </body>
+</html>

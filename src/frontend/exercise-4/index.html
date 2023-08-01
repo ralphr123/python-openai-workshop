@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>BEX Workshop</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../static/globals.css" />
+  </head>
+  <body>
+    <!-- BACK BTN -->
+    <button
+      id="back-btn"
+      class="dogica"
+      onclick="window.location.pathname = '/'"
+    >
+      <img src="../static/assets/icons/back.svg" />
+      Back
+    </button>
+
+    <!-- TEST AREA -->
+    <div>
+      <h2 class="pixel"><span>Exercise 4:</span> Bunny</h2>
+      <h3>Try your code!</h3>
+
+      <div id="chat-container">
+        <div>
+          <!-- Chat area -->
+          <div id="chat-box" class="dogica">
+            <div>
+              <div id="response-area"></div>
+              <img
+                id="openai-chat-logo"
+                src="../static/image/logo-openai.png"
+              />
+            </div>
+            <div>
+              <input type="text" disabled />
+              <div id="send-btn">
+                <img src="../static/assets/icons/send.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Maze area -->
+        <div id="maze-container">
+          <div id="level-btns">
+            <button id="small-btn">Small</button>
+            <button id="medium-btn">Medium</button>
+            <button id="large-btn">Large</button>
+          </div>
+          <div id="canvas-container">
+            <img
+              src="../static/assets/icons/cross.svg"
+              id="maze-error-indicator"
+              class="hidden"
+            />
+            <img
+              src="../static/assets/icons/check-circle.svg"
+              id="maze-success-indicator"
+              class="hidden"
+            />
+            <div id="pixi-container"></div>
+          </div>
+          <div id="maze-code-plaque" class="dogica"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RUN TESTS BUTTON -->
+    <button id="run-tests-btn" class="dogica"></button>
+
+    <!-- PIXI.JS SCRIPT - used for maze animations -->
+    <script src="https://cdn.jsdelivr.net/npm/pixi.js@7.x/dist/pixi.min.js"></script>
+
+    <!-- CUSTOM SCRIPT -->
+    <script type="module" src="script.js"></script>
+  </body>
+</html>

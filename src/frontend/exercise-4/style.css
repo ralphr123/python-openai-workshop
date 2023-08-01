@@ -1,0 +1,160 @@
+/* GENERAL */
+
+body > div {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+h2 span {
+  color: #ffb900;
+  font-size: 2.25rem;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* MAZE STATUS */
+
+#canvas-container {
+  position: relative;
+}
+
+#maze-error-indicator,
+#maze-success-indicator {
+  height: 10rem;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99;
+}
+
+#maze-success-indicator {
+  filter: invert(67%) sepia(19%) saturate(1204%) hue-rotate(71deg)
+    brightness(92%) contrast(86%);
+}
+
+#maze-error-indicator {
+  filter: invert(34%) sepia(86%) saturate(1695%) hue-rotate(349deg)
+    brightness(98%) contrast(94%);
+}
+
+/* BUTTONS */
+
+#level-btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+}
+
+#level-btns > button {
+  background-color: #ffb900;
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+}
+
+/* CHAT */
+
+#chat-container {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  margin: auto 0;
+}
+
+#maze-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+#pixi-container {
+  width: 55vh;
+  height: 55vh;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+#maze-code-plaque {
+  width: 25rem;
+  background-color: #ffb900;
+  color: black;
+  border-radius: 1rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  font-size: 0.75rem;
+}
+
+/* CHAT BOX */
+
+#chat-box {
+  border: 3px solid #ffb900;
+  height: 55vh;
+  width: 55vh;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#chat-box > div:nth-child(1) {
+  flex: 7;
+  position: relative;
+  overflow-y: auto;
+}
+
+#chat-box > div:nth-child(1) > div {
+  color: white;
+  padding: 2rem;
+  font-size: 1rem;
+}
+
+#openai-chat-logo {
+  filter: brightness(0) saturate(100%) invert(60%) sepia(95%) saturate(5489%)
+    hue-rotate(350deg) brightness(98%) contrast(93%);
+}
+
+#chat-box > div:nth-child(2) {
+  border-top: 3px solid #ffb900;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+#chat-box > div:nth-child(2) > input {
+  color: white;
+  font-size: 0.9rem;
+  height: 100%;
+  flex: 8;
+  background-color: transparent;
+  border: none;
+  padding: 0 1rem;
+  outline: none;
+}
+
+#chat-box > div:nth-child(2) > div {
+  background-color: #ffb900;
+  height: 100%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 0 0.25rem;
+}
+
+#chat-box > div:nth-child(2) > div:hover {
+  background-color: #dfa402;
+  cursor: pointer;
+}
+
+#chat-box > div:nth-child(2) > div > img {
+  height: 50%;
+  flex: 1;
+}

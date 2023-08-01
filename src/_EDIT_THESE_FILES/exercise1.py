@@ -7,8 +7,6 @@ import os
 # OpenAI Python SDK to allow us to make requests to GPT
 import openai
 
-
-
 # Use this function to print to the console for debugging
 def printToConsole(*args, sep=' ', end='\n'):
     print(*args, sep=sep, end=end, flush=True)

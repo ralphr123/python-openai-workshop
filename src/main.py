@@ -21,6 +21,10 @@ from _EDIT_THESE_FILES.exercise4 import system_msg as Exercise4__system_msg
 
 app = Flask(__name__)
 
+# Print error to console
+def eprint(*args, **kwargs):
+    print("ERROR: ", *args, file=sys.stderr, flush=True, **kwargs)
+
 # Allow frontend origin to make requests
 @app.after_request
 def afterRequest(response):
@@ -49,12 +53,14 @@ def exercise1():
 
         return { 'response': res }
     except Exception as e:
-        print(f"Error running exercise 1: {e}", flush=True)
+        eprint(f"Error running exercise 1: {e}")
         return { 'success': False, 'error': str(e) }
 
 @app.route('/exercise1/run-tests')
 def exercise1Tests():
     try:
+        raise Exception('Exercise 1 not yet implemented.')
+
         # Generate a random ID
         randId = str(uuid4())
 
@@ -70,7 +76,7 @@ def exercise1Tests():
 
         return { 'success': True  }
     except Exception as e:
-        print(f"Failed exercise 1 tests: {e}", flush=True)
+        eprint(f"Failed exercise 1 tests: {e}")
         return { 'success': False, 'error': str(e) }
 
 # EXERCISE 2
@@ -92,7 +98,7 @@ def exercise2():
             if (message['role'] == 'assistant'):
                 chat.addAIMessage(message['content'])
             if (message['role'] == 'user'):
-                chat.addAIMessage(message['content'])
+                chat.addUserMessage(message['content'])
 
         # Send latest user message to GPT using exercise class
         res = chat.sendMessage(messages[-1].get('content'))
@@ -102,7 +108,7 @@ def exercise2():
 
         return { 'messages': chat.messages }
     except Exception as e:
-        print(f"Error running exercise 2: {e}", flush=True)
+        eprint(f"Error running exercise 2: {e}")
         return { 'success': False, 'error': str(e) }
 
 @app.route('/exercise2/run-tests')
@@ -128,7 +134,7 @@ def exercise2Tests():
 
         return { 'success': True  }
     except Exception as e:
-        print(f"Failed exercise 2 tests: {e}", flush=True)
+        eprint(f"Failed exercise 2 tests: {e}")
         return { 'success': False, 'error': str(e) }
 
 # EXERCISE 3
@@ -152,7 +158,7 @@ def exercise3():
             if (message['role'] == 'assistant'):
                 chat.addAIMessage(message['content'])
             if (message['role'] == 'user'):
-                chat.addAIMessage(message['content'])
+                chat.addUserMessage(message['content'])
 
         # Send latest user message
         res = chat.sendMessage(messages[-1].get('content'))
@@ -163,7 +169,7 @@ def exercise3():
         # Return only chat messages (not including the system message)
         return { 'messages': chat.getChatMessages() }
     except Exception as e:
-        print(f"Error running exercise 3: {e}", flush=True)
+        eprint(f"Error running exercise 3: {e}")
         return { 'success': False, 'error': str(e) }
     
 @app.route('/exercise3/run-tests')
@@ -188,7 +194,7 @@ def exercise3Tests():
 
         return { 'success': True  }
     except Exception as e:
-        print(f"Failed exercise 3 tests: {e}", flush=True)
+        eprint(f"Failed exercise 3 tests: {e}")
         return { 'success': False, 'error': str(e) }
 
 @app.route('/exercise4/<maze_code>')
@@ -206,7 +212,7 @@ def exercise4(maze_code: str):
         # Return GPT's response instructions, split by newline
         return { 'instructions': res.splitlines() }
     except Exception as e:
-        print(f"Error running exercise 4: {e}", flush=True)
+        eprint(f"Error running exercise 4: {e}")
         return { 'success': False, 'error': str(e) }
     
 @app.route('/exercise4/run-tests')
@@ -245,7 +251,7 @@ def exercise4Tests():
         
         return { 'success': True  }
     except Exception as e:
-        print(f"Failed exercise 4 tests: {e}", flush=True)
+        eprint(f"Failed exercise 4 tests: {e}")
         return { 'success': False, 'error': str(e) }
 
 # Hello world route for debugging

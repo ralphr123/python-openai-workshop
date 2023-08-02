@@ -21,3 +21,5 @@ services:
     volumes:
       - ./src/frontend:/app/src/frontend
     restart: always
+    depends_on:
+      - server

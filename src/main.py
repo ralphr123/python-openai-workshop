@@ -59,8 +59,6 @@ def exercise1():
 @app.route('/exercise1/run-tests')
 def exercise1Tests():
     try:
-        raise Exception('Exercise 1 not yet implemented.')
-
         # Generate a random ID
         randId = str(uuid4())
 

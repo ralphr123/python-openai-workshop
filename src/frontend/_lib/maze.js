@@ -62,12 +62,12 @@ export class Maze {
       const cellSize = this.app.view.width / this.grid.length;
 
       // Set the sprite's size to fit within a cell
-      sprite.height = cellSize;
-      sprite.width = cellSize;
+      sprite.height = cellSize - 5;
+      sprite.width = cellSize - 5;
 
       // Move the sprite to initial position
-      sprite.x = Math.round(this.spriteCoordinates.x * cellSize);
-      sprite.y = Math.round(this.spriteCoordinates.y * cellSize);
+      sprite.x = Math.round(this.spriteCoordinates.x * cellSize + 2.5);
+      sprite.y = Math.round(this.spriteCoordinates.y * cellSize + 2.5);
 
       // Add sprite to dom
       this.app.stage.addChild(sprite);
@@ -129,8 +129,8 @@ export class Maze {
     try {
       return new Promise((resolve, reject) => {
         const cellSize = this.app.view.width / this.grid.length;
-        const targetX = Math.round(x * cellSize);
-        const targetY = Math.round(y * cellSize);
+        const targetX = Math.round(x * cellSize) + 2;
+        const targetY = Math.round(y * cellSize) + 2;
 
         // Callback to animate sprite's motion
         const animateMotion = () => {

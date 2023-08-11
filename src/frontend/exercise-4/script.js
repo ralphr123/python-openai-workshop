@@ -16,16 +16,12 @@ import { handleRunTests } from "../_lib/handleRunTests.js";
     "maze-success-indicator"
   );
 
-  let maze = new Maze({
+  const maze = new Maze({
     mazeDimensions: 5,
     spriteImageUrl: "https://pixijs.com/assets/bunny.png",
     elementIdToInject: "pixi-container",
     // Show success indicator if sprite finished maze
     onSuccess: () => {
-      const $mazeSuccessIndicator = document.getElementById(
-        "maze-success-indicator"
-      );
-
       $mazeSuccessIndicator.classList.remove("hidden");
     },
   });
@@ -42,8 +38,17 @@ import { handleRunTests } from "../_lib/handleRunTests.js";
   $mediumBtn.addEventListener("click", () => loadNewMaze(10));
   $largeBtn.addEventListener("click", () => loadNewMaze(20));
 
+  /**
+   * Send maze code to backend and follow instructions returned by GPT
+   * @returns {Promise<void>}
+   */
   async function send() {
+    // Add maze instructions to response area
+    $responseArea.innerText = `User: ${maze.mazeCode}\n`;
+
     $openaiLogo.classList.add("rotating");
+    maze.resetSprite();
+    $mazeSuccessIndicator.classList.add("hidden");
 
     // Fetch exercise data
     const data = await callBackend({
@@ -53,6 +58,12 @@ import { handleRunTests } from "../_lib/handleRunTests.js";
     const instructions = data?.instructions;
 
     if (!instructions?.length) return;
+
+    // Disable buttons while maze is being solved
+    $smallBtn.disabled = true;
+    $mediumBtn.disabled = true;
+    $largeBtn.disabled = true;
+    $sendBtn.disabled = true;
 
     // Follow recieved maze instructions
     for (const instruction of instructions) {
@@ -80,15 +91,25 @@ import { handleRunTests } from "../_lib/handleRunTests.js";
             break;
         }
       } catch (e) {
-        $mazeFailIndicator.classList.remove("hidden");
-        $responseArea.innerText = "";
+        console.log(e);
 
-        setTimeout(() => {
-          $mazeFailIndicator.classList.add("hidden");
-          maze.resetSprite();
-        }, 3000);
+        if (e === "Out of bounds") {
+          $mazeFailIndicator.classList.remove("hidden");
+          $responseArea.innerText = "";
+
+          setTimeout(() => {
+            $mazeFailIndicator.classList.add("hidden");
+            maze.resetSprite();
+          }, 3000);
+        }
       }
     }
+
+    // Re-enable buttons
+    $smallBtn.disabled = false;
+    $mediumBtn.disabled = false;
+    $largeBtn.disabled = false;
+    $sendBtn.disabled = false;
 
     $openaiLogo.classList.remove("rotating");
   }
@@ -99,18 +120,7 @@ import { handleRunTests } from "../_lib/handleRunTests.js";
    */
   function loadNewMaze(mazeDimensions) {
     // Reset maze and bunny position
-    maze = new Maze({
-      mazeDimensions,
-      spriteImageUrl: "https://pixijs.com/assets/bunny.png",
-      elementIdToInject: "pixi-container",
-      onSuccess: () => {
-        const $mazeSuccessIndicator = document.getElementById(
-          "maze-success-indicator"
-        );
-
-        $mazeSuccessIndicator.classList.remove("hidden");
-      },
-    });
+    maze.resetMaze(mazeDimensions);
 
     // Put maze code inside plaque and input fields
     $mazeCodePlaque.innerText = maze.mazeCode;
@@ -118,6 +128,9 @@ import { handleRunTests } from "../_lib/handleRunTests.js";
 
     // Clear GPT response area
     $responseArea.innerText = "";
+
+    // Stop OpenAI logo from rotating
+    $openaiLogo.classList.remove("rotating");
 
     // Remove fail/success indicators
     $mazeSuccessIndicator.classList.add("hidden");

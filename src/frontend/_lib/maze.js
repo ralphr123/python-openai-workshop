@@ -18,7 +18,34 @@ export class Maze {
     elementIdToInject,
     onSuccess,
   }) {
-    const $pixiContainer = document.getElementById(elementIdToInject);
+    this.elementIdToInject = elementIdToInject;
+    this.spriteImageUrl = spriteImageUrl;
+    this.onSuccess = onSuccess;
+    this.onSuccess = onSuccess;
+
+    this.resetMaze(mazeDimensions);
+  }
+
+  /**
+   * Reset sprite cooridinates
+   */
+  resetSprite() {
+    // Reset sprite coordinates
+    this.spriteCoordinates = { x: 0, y: 1 };
+
+    // Remove existing sprite from app
+    this.app.stage.removeChild(this.sprite);
+
+    // Generate new sprite
+    this.sprite = this.generateSprite(this.spriteImageUrl);
+  }
+
+  /**
+   * Reset maze and bunny position
+   * @param {number} mazeDimensions
+   */
+  resetMaze(mazeDimensions) {
+    const $pixiContainer = document.getElementById(this.elementIdToInject);
 
     // Clear any existing content from DOM element
     $pixiContainer.innerHTML = "";
@@ -29,6 +56,9 @@ export class Maze {
       resizeTo: $pixiContainer,
     });
 
+    // Add app to dom
+    $pixiContainer.appendChild(this.app.view);
+
     // Generate random nxn matrix to represent maze
     this.grid = generateRandomMaze(mazeDimensions);
 
@@ -38,17 +68,8 @@ export class Maze {
     // Draw the maze on the app
     this.drawMaze();
 
-    // Set sprite coordinates to maze entrance (starting cell)
-    this.spriteCoordinates = { x: 0, y: 1 };
-
     // Generate pixi sprite with correct size and coordinates
-    this.sprite = this.generateSprite(spriteImageUrl);
-
-    // Handlers
-    this.onSuccess = onSuccess;
-
-    // Add app to dom
-    $pixiContainer.appendChild(this.app.view);
+    this.resetSprite();
   }
 
   /**
@@ -62,12 +83,12 @@ export class Maze {
       const cellSize = this.app.view.width / this.grid.length;
 
       // Set the sprite's size to fit within a cell
-      sprite.height = cellSize - 5;
-      sprite.width = cellSize - 5;
+      sprite.height = cellSize - 6;
+      sprite.width = cellSize - 6;
 
       // Move the sprite to initial position
-      sprite.x = Math.round(this.spriteCoordinates.x * cellSize + 2.5);
-      sprite.y = Math.round(this.spriteCoordinates.y * cellSize + 2.5);
+      sprite.x = Math.round(this.spriteCoordinates.x * cellSize + 3);
+      sprite.y = Math.round(this.spriteCoordinates.y * cellSize + 3);
 
       // Add sprite to dom
       this.app.stage.addChild(sprite);
@@ -78,6 +99,9 @@ export class Maze {
     }
   }
 
+  /**
+   * Draw maze on pixi app
+   */
   drawMaze() {
     try {
       const cellSize = this.app.view.width / this.grid.length;
@@ -132,22 +156,22 @@ export class Maze {
         const targetX = Math.round(x * cellSize) + 2;
         const targetY = Math.round(y * cellSize) + 2;
 
+        const sprite = this.sprite;
+
         // Callback to animate sprite's motion
         const animateMotion = () => {
           try {
             if (this.isSpriteOutOfBounds()) {
-              reject("Out of bounds");
               this.app.ticker.remove(animateMotion);
+              reject("Out of bounds");
               return;
             }
 
-            this.isSpriteOutOfBounds();
-
             // Move sprite
-            if (this.sprite.x !== targetX) {
-              this.sprite.x += this.sprite.x < targetX ? 1 : -1;
-            } else if (this.sprite.y !== targetY) {
-              this.sprite.y += this.sprite.y < targetY ? 1 : -1;
+            if (sprite.x !== targetX) {
+              sprite.x += sprite.x < targetX ? 1 : -1;
+            } else if (sprite.y !== targetY) {
+              sprite.y += sprite.y < targetY ? 1 : -1;
             } else {
               this.app.ticker.remove(animateMotion);
 
@@ -196,20 +220,6 @@ export class Maze {
       this.spriteCoordinates.x + n,
       this.spriteCoordinates.y
     );
-  }
-
-  /**
-   * Reset sprite cooridinates
-   */
-  resetSprite() {
-    const cellSize = this.app.view.width / this.grid.length;
-
-    // Set sprite coordinates to maze entrance (starting cell)
-    this.spriteCoordinates = { x: 0, y: 1 };
-
-    // Reset coordinates on DOM
-    this.sprite.x = Math.round(this.spriteCoordinates.x * cellSize);
-    this.sprite.y = Math.round(this.spriteCoordinates.y * cellSize);
   }
 
   /**

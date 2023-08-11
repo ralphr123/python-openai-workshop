@@ -17,7 +17,7 @@ class Chat:
 		self.messages = []
 
 	# Add a message of role "user" to the self.messages array
-	def addAIMessage(self, message: str) -> None:
+	def addUserMessage(self, message: str) -> None:
 		raise Exception("Exercise 2: Add user message not implemented.")
 
 	# Add a message of role "assistant" to the self.messages array

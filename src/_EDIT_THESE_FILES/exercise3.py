@@ -27,7 +27,7 @@ class Chat:
 		raise Exception("Exercise 3: Add system message not implemented.")
 
 	# Add a message of role "user" to the self.messages array
-	def addAIMessage(self, message: str) -> None:
+	def addUserMessage(self, message: str) -> None:
 		# You can copy this from exercise 2
 		raise Exception("Exercise 3: Add user message not implemented.")
 

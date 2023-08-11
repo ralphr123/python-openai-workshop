@@ -5,6 +5,7 @@
  */
 export async function callBackend({ method = "GET", path, body = undefined }) {
   try {
+    // prettier-ignore
     const url = `${location.protocol}//${location.host.replace('3000', '4200')}${path}`
     const res = await fetch(url, {
       headers: {
@@ -31,6 +32,6 @@ export async function callBackend({ method = "GET", path, body = undefined }) {
       $toast.classList.remove("show");
     }, 3500);
 
-    return {};
+    return { error: e };
   }
 }

@@ -40,6 +40,10 @@ import { handleRunTests } from "../_lib/handleRunTests.js";
       },
     });
 
+    if (data.error) {
+      messages = [];
+    }
+
     messages = data?.messages || messages;
 
     $openaiLogo.classList.remove("rotating");

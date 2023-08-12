@@ -7,45 +7,35 @@ from typing import List
 # OpenAI Python SDK to allow us to make requests to GPT
 import openai
 
-# Use this function to print to the console for debugging
-def printToConsole(*args, sep=' ', end='\n'):
-    print(*args, sep=sep, end=end, flush=True)
-
 # ===========================
 # === MODIFY THIS SECTION ===
 # ===========================
 
-class Chat:
-	def __init__(self, system_msg: str = None):
-		self.messages = []
+# List to store message history
+history = []
 
-		if (system_msg):
-			self.addSystemMessage(system_msg)
+# Add a message of role "system" to the history array
+def addSystemMessage(message: str):
+	raise NotImplementedError('addSystemMessage() has not been implemented yet') # Remove this line when you start working on this function
 
-	# Add a message of role "system" to the self.messages array
-	def addSystemMessage(self, message: str) -> None:
-		raise Exception("Exercise 3: Add system message not implemented.")
+# Add a message of role "user" to the history array
+# You can copy this function from exercise2.py
+def addUserMessage(message: str):
+	raise NotImplementedError('addUserMessage() has not been implemented yet') # Remove this line when you start working on this function
 
-	# Add a message of role "user" to the self.messages array
-	def addUserMessage(self, message: str) -> None:
-		# You can copy this from exercise 2
-		raise Exception("Exercise 3: Add user message not implemented.")
+# Add a message of role "assistant" to the history array
+# You can copy this function from exercise2.py
+def addAIMessage(message: str):
+	raise NotImplementedError('addAIMessage() has not been implemented yet') # Remove this line when you start working on this function
 
-	# Add a message of role "assistant" to the self.messages array
-	def addAIMessage(self, message: str) -> None:
-		# You can copy this from exercise 2
-		raise Exception("Exercise 3: Add assistant message not implemented.")
+# Send a message to GPT and return the response string
+# You can copy this function from exercise2.py
+def sendMessage(message: str) -> str:
+	raise NotImplementedError('sendMessage() has not been implemented yet') # Remove this line when you start working on this function
 
-	# Send a message to GPT and return the response string
-	def sendMessage(self, message: str) -> str:
-		# You can copy this from exercise 2
-		raise Exception("Exercise 3: Send message not implemented.")
-
+# Get all non-system messages from array. This should return a List of messages.
+def getChatMessages() -> List:
+	# Feel free you use any method you'd like to filter out the system message
+	# Ex. loop, python filter function, subarrays, etc.
+	raise NotImplementedError('getChatMessages() has not been implemented yet') # Remove this line when you start working on this function
 	
-	# Get all non-system messages from array
-	def getChatMessages(self) -> List:
-		raise Exception("Exercise 3: Get chat messages not implemented.")
-
-		# Feel free you use any method you'd like to filter out the system message
-		# Ex. loop, python filter function, subarrays, etc.
-

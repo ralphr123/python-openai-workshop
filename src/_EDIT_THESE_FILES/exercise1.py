@@ -1,15 +1,11 @@
-# Load environment variables from .env
+# Load environment variables
 from dotenv import load_dotenv; load_dotenv()
 
-# Fetch environment variables from .env
+# Fetch environment variables
 import os
 
 # OpenAI Python SDK to allow us to make requests to GPT
 import openai
-
-# Use this function to print to the console for debugging
-def printToConsole(*args, sep=' ', end='\n'):
-    print(*args, sep=sep, end=end, flush=True)
 
 # ===========================
 # Welcome! This is the part of the file where you'll be writing your code.
@@ -22,9 +18,9 @@ def printToConsole(*args, sep=' ', end='\n'):
 # === MODIFY THIS SECTION ===
 # ===========================
 
-# Set OpenAI environment variables as shown in documenation
+# Set OpenAI variables as shown in documenation
 openai.api_type = '...'
 
 # Call Azure to send the message to GPT and return the response string
 def sendMessage(message: str) -> str:
-    raise Exception("Exercise 1: send message incomplete.")
+    raise Exception("Exercise 1: send message incomplete.") # Remove this line when you start working on this function

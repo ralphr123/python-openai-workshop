@@ -1,6 +1,9 @@
 # No __pycache__ folder in edit directory to prevent confusion
 import sys; sys.dont_write_bytecode = True
 
+# To wait for 2 seconds before restarting server
+import time
+
 # Load environment variables
 from dotenv import load_dotenv; load_dotenv()
 
@@ -15,9 +18,34 @@ from random import randint
 
 # Import exercise modules
 from _EDIT_THESE_FILES.exercise1 import sendMessage as Exercise1__sendMessage
-from _EDIT_THESE_FILES.exercise2 import Chat as Exercise2__Chat
-from _EDIT_THESE_FILES.exercise3 import Chat as Exercise3__Chat
+from _EDIT_THESE_FILES.exercise2 import (
+    addAIMessage as Exercise2__addAIMessage, 
+    addUserMessage as Exercise2__addUserMessage, 
+    sendMessage as Exercise2__sendMessage, 
+    history as Exercise2__history
+)
+from _EDIT_THESE_FILES.exercise3 import (
+    addSystemMessage as Exercise3__addSystemMessage,
+    addAIMessage as Exercise3__addAIMessage, 
+    addUserMessage as Exercise3__addUserMessage, 
+    sendMessage as Exercise3__sendMessage, 
+    getChatMessages as Exercise3__getChatMessages,
+    history as Exercise3__history
+)
 from _EDIT_THESE_FILES.exercise4 import system_msg as Exercise4__system_msg
+
+# Import OpenAI Python SDK to allow us to make requests to GPT
+import openai
+
+# Import os to fetch environment variables
+import os
+
+# Set the environment variables for OpenAI
+# We prompt the students do this in their code too, but we don't want them blocking on this
+openai.api_type = 'azure'
+openai.api_version = '2023-05-15'
+openai.api_base = os.getenv('OPENAI_API_BASE')
+openai.api_key = os.getenv('OPENAI_API_KEY')
 
 app = Flask(__name__)
 
@@ -82,29 +110,30 @@ def exercise1Tests():
 @app.route('/exercise2', methods=['POST'])
 def exercise2():
     try:
+        # Clear chat history
+        Exercise2__history.clear()
+
         # Get request body
         data = request.get_json()
         messages = data.get('messages')
 
         if messages == None:
             raise Exception('No message provided in request body.')
-
-        chat = Exercise2__Chat()
         
         # Load chat history
         for message in messages[:-1]:
             if (message['role'] == 'assistant'):
-                chat.addAIMessage(message['content'])
+                Exercise2__addAIMessage(message['content'])
             if (message['role'] == 'user'):
-                chat.addUserMessage(message['content'])
+                Exercise2__addUserMessage(message['content'])
 
         # Send latest user message to GPT using exercise class
-        res = chat.sendMessage(messages[-1].get('content'))
+        res = Exercise2__sendMessage(messages[-1].get('content'))
 
         if (not isinstance(res, str)):
             raise Exception("Response is not a string. Recieved: ", res)
 
-        return { 'messages': chat.messages }
+        return { 'messages': Exercise2__history }
     except Exception as e:
         eprint(f"Error running exercise 2: {e}")
         return { 'success': False, 'error': str(e) }
@@ -112,19 +141,20 @@ def exercise2():
 @app.route('/exercise2/run-tests')
 def exercise2Tests():
     try:
+        # Clear chat history
+        Exercise2__history.clear()
+
         # Generate random ID
         randId = str(uuid4())
 
-        chat = Exercise2__Chat()
-
         # Send the ID to GPT in the first message
-        res1 = chat.sendMessage(f'Hello! Remember this code and respond with just "Remembered": {randId}')
+        res1 = Exercise2__sendMessage(f'Hello! Remember this code and respond with just "Remembered": {randId}')
 
         if (not isinstance(res1, str)):
             raise Exception("Response is not a string. Recieved: ", res1)
 
         # Ask for the ID again in the second message
-        res2 = chat.sendMessage(f'What was the code again?')
+        res2 = Exercise2__sendMessage('What was the code?')
 
         # If the history was correctly set up, the id should be in the second response
         if (not randId in res2):
@@ -140,6 +170,9 @@ def exercise2Tests():
 @app.route('/exercise3', methods=['POST'])
 def exercise3():
     try:
+        # Clear chat history
+        Exercise3__history.clear()
+
         # Get request body
         data = request.get_json()
         system_msg = data.get('systemMessage')
@@ -148,24 +181,23 @@ def exercise3():
         if system_msg == None or messages == None:
             raise Exception('No message provided in request body.')
 
-        # Initialize exercise class with system message
-        chat = Exercise3__Chat(system_msg)
+        Exercise3__addSystemMessage(system_msg)
 
         # Load chat history
         for message in messages[:-1]:
             if (message['role'] == 'assistant'):
-                chat.addAIMessage(message['content'])
+                Exercise3__addAIMessage(message['content'])
             if (message['role'] == 'user'):
-                chat.addUserMessage(message['content'])
+                Exercise3__addUserMessage(message['content'])
 
         # Send latest user message
-        res = chat.sendMessage(messages[-1].get('content'))
+        res = Exercise3__sendMessage(messages[-1].get('content'))
 
         if (not isinstance(res, str)):
             raise Exception("Response is not a string. Recieved: ", res)
 
         # Return only chat messages (not including the system message)
-        return { 'messages': chat.getChatMessages() }
+        return { 'messages': Exercise3__getChatMessages() }
     except Exception as e:
         eprint(f"Error running exercise 3: {e}")
         return { 'success': False, 'error': str(e) }
@@ -173,6 +205,9 @@ def exercise3():
 @app.route('/exercise3/run-tests')
 def exercise3Tests():
     try:
+        # Clear chat history
+        Exercise3__history.clear()
+
         # Generate a random ID
         randId = str(uuid4())
 
@@ -180,8 +215,8 @@ def exercise3Tests():
         system_msg = f"You are a droid, and you end off every message with -{randId}"
 
         # Initialize exercise class instance with the custom system message
-        chat = Exercise3__Chat(system_msg)
-        res = chat.sendMessage('Hello!')
+        Exercise3__addSystemMessage(system_msg)
+        res = Exercise3__sendMessage('Hello!')
 
         if (not isinstance(res, str)):
             raise Exception("Response is not a string. Recieved: ", res)
@@ -194,15 +229,20 @@ def exercise3Tests():
     except Exception as e:
         eprint(f"Failed exercise 3 tests: {e}")
         return { 'success': False, 'error': str(e) }
+    
+# EXERCISE 4
 
 @app.route('/exercise4/<maze_code>')
 def exercise4(maze_code: str):
     try:
+        # Clear chat history
+        Exercise3__history.clear()
+
         # Declare an exercise 3 instance with students' exercise 4 system message
-        chat = Exercise3__Chat(Exercise4__system_msg)
+        Exercise3__addSystemMessage(Exercise4__system_msg)
 
         # Send the maze code to GPT
-        res = chat.sendMessage(maze_code)
+        res = Exercise3__sendMessage(maze_code)
 
         if (not isinstance(res, str)):
             raise Exception("Response is not a string. Recieved: ", res)
@@ -216,14 +256,17 @@ def exercise4(maze_code: str):
 @app.route('/exercise4/run-tests')
 def exercise4Tests():
     try:
+        # Clear chat history
+        Exercise3__history.clear()
+
         # Generate a random maze code
         maze_code = f'\\instr -R {randint(0, 4)} -U {randint(0, 2)} -L {randint(0, 5)}'
 
         # Declare an exercise 3 instance with students' exercise 4 system message
-        chat = Exercise3__Chat(Exercise4__system_msg)
+        Exercise3__addSystemMessage(Exercise4__system_msg)
 
         # Send the generated maze code to GPT
-        res = chat.sendMessage(maze_code)
+        res = Exercise3__sendMessage(maze_code)
 
         if (not isinstance(res, str)):
             raise Exception("Response is not a string. Recieved: ", res)
@@ -252,7 +295,7 @@ def exercise4Tests():
         eprint(f"Failed exercise 4 tests: {e}")
         return { 'success': False, 'error': str(e) }
 
-# Hello world route for debugging
+# HELLO WORLD
 @app.route('/')
 def helloWorld():
     return "Hello world!"

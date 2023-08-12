@@ -15,4 +15,6 @@ RUN echo $PASSPHRASE | gpg --quiet --batch --yes --passphrase-fd 0 --output=.env
 
 EXPOSE 4200
 
-CMD [ "python", "/app/src/main.py"]
+RUN chmod +x /app/run-server.sh
+
+CMD ["/app/run-server.sh"]

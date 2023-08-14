@@ -11,7 +11,8 @@ RUN pip install -r requirements.txt
 COPY . .
 
 ARG PASSPHRASE
-RUN echo $PASSPHRASE | gpg --quiet --batch --yes --passphrase-fd 0 --output=.env .env.gpg
+ARG NUM
+RUN echo $PASSPHRASE | gpg --quiet --batch --yes --passphrase-fd 0 --output=.env ./env/.env${NUM}.gpg
 
 EXPOSE 4200
 

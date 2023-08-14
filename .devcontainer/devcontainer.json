@@ -3,7 +3,8 @@
     "vscode": {
       "extensions": ["ms-python.python"],
       "settings": {
-        "extensions.ignoreRecommendations": true
+        "extensions.ignoreRecommendations": true,
+        "python.linting.enabled": false
       }
     }
   }

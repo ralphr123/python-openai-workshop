@@ -1,15 +1,9 @@
 #!/bin/bash -e
 
-# Define a function to handle stop signals
-terminate() {
-    kill -s SIGTERM $$
-    exit 0
-}
+done=0
+trap 'done=1' TERM INT
 
-# Trap stop signals and call the 'terminate' function
-trap terminate SIGTERM SIGHUP SIGINT
-
-while true; do
+while [ $done = 0 ]; do
     python /app/src/main.py
     if [ $? -ne 0 ]; then
         # An error occurred. Wait for a bit before attempting to run the script again.

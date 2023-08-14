@@ -22,5 +22,5 @@ import openai
 openai.api_type = '...'
 
 # Call Azure to send the message to GPT and return the response string
-def sendMessage(message: str) -> str:
+def sendMessage(text: str) -> str:
     raise Exception("Exercise 1: send message incomplete.") # Remove this line when you start working on this function

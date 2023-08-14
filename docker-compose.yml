@@ -11,13 +11,14 @@ services:
     restart: always
     depends_on:
       - server
-    
+
   server:
     build:
       context: .
       dockerfile: Dockerfile.server
       args:
-        - PASSPHRASE=${PASSPHRASE}
+        - PASSPHRASE=${P}
+        - NUM=${N}
     ports:
       - 4200:4200
     volumes:

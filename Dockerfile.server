@@ -3,13 +3,17 @@ FROM python:3.9-slim
 WORKDIR /app
 ENV PIP_ROOT_USER_ACTION=ignore
 
+# Install tool to decrypt env files
 RUN apt-get update && apt-get install -y gnupg2
 
+# Copy over python dependencies and install them
 COPY python-requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
 COPY . .
 
+# Decrypt the correct env file depending on the build arg
+# This is done to ensure workshop participants hit varying endpoints to prevent overloading
 ARG PASSPHRASE
 ARG NUM
 RUN echo $PASSPHRASE | gpg --quiet --batch --yes --passphrase-fd 0 --output=.env ./env/.env${NUM}.gpg

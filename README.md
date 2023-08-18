@@ -9,6 +9,8 @@ There are two manuals included in this repo. They are intended to be distributed
 1. **setup-manual.pdf** - For the participants to setup their environment locally or on Codespaces.
 2. **workshop-manual.pdf** - For the participants to follow along with the workshop.
 
+Keep in mind the current manuals are intended for use with Azure OpenAI, but can be easily modified to work with OpenAI directly.
+
 As part of this workshop, students are guided through a series of four exercises, to be completed in order. The exercises consist of four Python APIs that the students are expected to complete. As they complete them, the frontend will become functional and the next exercises will light up, becoming available to complete. The frontend is already built for the students; they need only to complete the backend code to finish the lab. Once each exercise is completed, the next one will unlock. Every time an exercise page is opened, students will have a test area in the center, a Run tests button on the bottom right, and a Back button on the top left.
 
 ![image](https://github.com/ralphr123/bex-workshop-sol/assets/29685125/87f83a6a-bd4f-4f6e-a39f-ee9d8a8fa882)
@@ -34,7 +36,9 @@ There are four exercises in this lab, each one being a Python API students have 
 
 ## Workshop implementation
 
-If you are a workshop organizer and are trying to apply this starter code to your own event, you will need to create your own OpenAI resources and encrypt their keys into .env1.gpg files using the GPG command line tool. The environment files expect three keys to be set:
+If you are a workshop organizer and are trying to apply this starter code to your own event, you will need to create your own OpenAI resources and encrypt their keys into .env1.gpg files using the GPG command line tool. You will need to fork this repo and update the /env folder with your own encrypted .env files.
+
+The Python starter code expects three keys to be set:
 
 1. OPENAI_API_KEY: Your OpenAI API key
 2. OPENAI_API_BASE: The base URL for the OpenAI API

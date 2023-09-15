@@ -19,7 +19,7 @@ import openai
 # ===========================
 
 # Set OpenAI variables as shown in documenation
-openai.api_type = '...'
+openai.api_key = os.getenv('OPENAI_API_KEY')
 
 # Call Azure to send the message to GPT and return the response string
 def sendMessage(text: str) -> str:

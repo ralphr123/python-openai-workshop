@@ -13,7 +13,7 @@ Keep in mind the current manuals are intended for use with Azure OpenAI, but can
 
 ## Workshop overview
 
-There are four exercises in this lab, each one being a Python API students have to complete. A deployed version of the workshop can be found [here](https://gray-beach-052df4810.3.azurestaticapps.net/). Keep in mind that the deployed version has the completed code, so all exercises are available and functional.
+There are four exercises in this lab, each one being a Python API students have to complete. A deployed version of the workshop can be found at https://gray-beach-052df4810.3.azurestaticapps.net. Keep in mind that the deployed version has the completed code, so all exercises are available and functional.
 
 1. (POST /exercise1) Send a single message to GPT
    ![image](https://github.com/ralphr123/bex-workshop-sol/assets/29685125/68762092-cb31-4f8d-9c4e-6af631de38e1)

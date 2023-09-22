@@ -37,9 +37,15 @@ h1 .rainbow {
   height: 6rem;
 }
 
-#logo-td {
-  border-radius: 1em;
-  height: 5.5rem;
+#logo-byo {
+  border-radius: 100%;
+  border: 1px solid white;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 6rem;
+  height: 6rem;
 }
 
 /* EXERCISE BUTTONS */

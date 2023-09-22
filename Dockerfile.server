@@ -6,11 +6,10 @@ ENV PIP_ROOT_USER_ACTION=ignore
 # Install tool to decrypt env files
 RUN apt-get update && apt-get install -y gnupg2
 
-# Copy over python dependencies and install them
-COPY python-requirements.txt requirements.txt
-RUN pip install -r requirements.txt
-
 COPY . .
+
+# Install python dependencies
+RUN pip install -r requirements.txt
 
 # Decrypt the correct env file depending on the build arg
 # This is done to ensure workshop participants hit varying endpoints to prevent overloading

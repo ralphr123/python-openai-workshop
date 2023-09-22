@@ -3,9 +3,18 @@
     "vscode": {
       "extensions": ["ms-python.python"],
       "settings": {
-        "extensions.ignoreRecommendations": true,
-        "python.linting.enabled": false
+        "extensions.ignoreRecommendations": true
       }
+    }
+  },
+  "portsAttributes": {
+    "3000": {
+      "label": "Frontend",
+      "onAutoForward": "openBrowser"
+    },
+    "4200": {
+      "label": "Backend",
+      "onAutoForward": "silent"
     }
   }
 }
